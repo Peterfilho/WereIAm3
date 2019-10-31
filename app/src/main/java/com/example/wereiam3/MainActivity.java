@@ -3,6 +3,8 @@ package com.example.wereiam3;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +47,29 @@ public class MainActivity extends AppCompatActivity {
         listViewAps = (ListView)findViewById(R.id.listViewAps);
 
         listData();
+
+        listViewAps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String content = (String) listViewAps.getItemAtPosition(i);
+
+                Toast.makeText(MainActivity.this, "Select: " + content, Toast.LENGTH_LONG).show();
+
+                String id = content.substring(0 , content.indexOf("-"));
+
+                Access_point access_point = db.selectData(Integer.parseInt(id));
+
+                editCodigo.setText(String.valueOf(access_point.getId()));
+                editName.setText(access_point.getName());
+                editAp1.setText(access_point.ap1);
+                editAp2.setText(access_point.ap2);
+                editAp3.setText(access_point.ap3);
+                editAp4.setText(access_point.ap4);
+                editAp5.setText(access_point.ap5);
+
+            }
+        });
 
         /*TEST-CRUD*/
 
