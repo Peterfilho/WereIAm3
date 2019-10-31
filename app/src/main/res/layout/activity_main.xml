@@ -11,8 +11,8 @@
         android:layout_width="170px"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Código"
         android:enabled="false"
+        android:hint="Id"
         android:inputType="number" />
 
     <EditText
@@ -20,15 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nome" />
+        android:hint="Nome do local"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editAp1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ap1"
+        android:hint="dBm do Ap1"
         android:inputType="numberSigned" />
 
     <EditText
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ap2"
+        android:hint="dBm do Ap2"
         android:inputType="numberSigned" />
 
     <EditText
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ap3"
+        android:hint="dBm do Ap3"
         android:inputType="numberSigned" />
 
     <EditText
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ap4"
+        android:hint="dBm do Ap4"
         android:inputType="numberSigned" />
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ap5"
+        android:hint="dBm do Ap5"
         android:inputType="numberSigned" />
 
     <LinearLayout

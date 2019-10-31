@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         listData();
 
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearForm();
+            }
+        });
+
         listViewAps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -68,6 +75,54 @@ public class MainActivity extends AppCompatActivity {
                 editAp4.setText(access_point.ap4);
                 editAp5.setText(access_point.ap5);
 
+            }
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String id = editCodigo.getText().toString();
+                String name = editName.getText().toString();
+                String ap1 = editAp1.getText().toString();
+                String ap2 = editAp2.getText().toString();
+                String ap3 = editAp3.getText().toString();
+                String ap4 = editAp4.getText().toString();
+                String ap5 = editAp5.getText().toString();
+
+                if(name.isEmpty()) {
+                    editName.setError("Este campo é obrigatório");
+                }else if (id.isEmpty()) {
+                    db.addApData(new Access_point(name, ap1, ap2, ap3, ap4, ap5));
+                    Toast.makeText(MainActivity.this, "Local cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                    listData();
+                    clearForm();
+                } else {
+                    db.updateData(new Access_point(Integer.parseInt(id), name, ap1, ap2, ap3, ap4, ap5));
+                    Toast.makeText(MainActivity.this, "Local atualizado com sucesso!", Toast.LENGTH_LONG).show();
+                    listData();
+                    clearForm();
+                }
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id = editCodigo.getText().toString();
+
+                if (id.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Nenhum local selecionado!", Toast.LENGTH_LONG).show();
+                } else {
+                    Access_point access_point = new Access_point();
+                    access_point.setId(Integer.parseInt(id));
+                    db.deleteApData(access_point);
+
+                    Toast.makeText(MainActivity.this, "Local excluído com sucesso!", Toast.LENGTH_LONG).show();
+                    listData();
+                    clearForm();
+
+                }
             }
         });
 
@@ -127,9 +182,18 @@ public class MainActivity extends AppCompatActivity {
 //                + " Ap4: " + access_point.getAp4()
 //                + " Ap5: " + access_point.getAp5()
 //        );
+    }
 
+    public void clearForm() {
+        editCodigo.setText("");
+        editName.setText("");
+        editAp1.setText("");
+        editAp2.setText("");
+        editAp3.setText("");
+        editAp4.setText("");
+        editAp5.setText("");
 
-
+        editName.requestFocus();
     }
 
     public void listData() {
@@ -146,8 +210,8 @@ public class MainActivity extends AppCompatActivity {
         for(Access_point a : access_points) {
             arrayList.add(a.getId() + "-" + a.getName());
             adapter.notifyDataSetChanged();
-//            Log.d("Lista ", "\nID: " + a.getId() +
-//                    " Name: " + a.getName());
         }
     }
+
+
 }
