@@ -3,10 +3,14 @@ package com.example.wereiam3;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,13 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listViewAps;
 
+    ArrayAdapter<String> adapter;
+    ArrayList<String> arrayList;
+
     Database db = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         editCodigo = (EditText)findViewById(R.id.editCod);
         editName = (EditText)findViewById(R.id.editName);
@@ -37,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         btnDelete = (Button)findViewById(R.id.btnDelete);
 
         listViewAps = (ListView)findViewById(R.id.listViewAps);
+
+        listData();
 
         /*TEST-CRUD*/
 
@@ -95,7 +103,26 @@ public class MainActivity extends AppCompatActivity {
 //                + " Ap5: " + access_point.getAp5()
 //        );
 
-        
 
+
+    }
+
+    public void listData() {
+
+        List<Access_point> access_points = db.listAllData();
+
+        arrayList = new ArrayList<String>();
+
+        adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, arrayList);
+
+        listViewAps.setAdapter(adapter);
+
+
+        for(Access_point a : access_points) {
+            arrayList.add(a.getId() + "-" + a.getName());
+            adapter.notifyDataSetChanged();
+//            Log.d("Lista ", "\nID: " + a.getId() +
+//                    " Name: " + a.getName());
+        }
     }
 }

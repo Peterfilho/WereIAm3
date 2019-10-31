@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Database extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -115,4 +118,33 @@ public class Database extends SQLiteOpenHelper {
         db.update(TABLE_LOCAL, values, COLUM_ID + " = ?",
                 new String[] {String.valueOf(ap.getId())});
     }
+
+    public List<Access_point> listAllData() {
+        List<Access_point> list = new ArrayList<Access_point>();
+
+        String query = "SELECT * FROM " + TABLE_LOCAL;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                Access_point access_point = new Access_point();
+                access_point.setId(Integer.parseInt(cursor.getString(0)));
+                access_point.setName(cursor.getString(1));
+                access_point.setAp1(cursor.getString(2));
+                access_point.setAp2(cursor.getString(3));
+                access_point.setAp3(cursor.getString(4));
+                access_point.setAp4(cursor.getString(5));
+                access_point.setAp5(cursor.getString(6));
+
+                list.add(access_point);
+
+            }while (cursor.moveToNext());
+        }
+
+        return list;
+    }
+
 }
